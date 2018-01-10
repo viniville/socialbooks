@@ -58,5 +58,11 @@ public class Comentario  implements Serializable {
 	public void setData(Date data) {
 		this.data = data;
 	}
+	public Livro getLivro() {
+		return livro;
+	}
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
 	
 }

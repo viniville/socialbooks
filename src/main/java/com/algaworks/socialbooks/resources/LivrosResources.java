@@ -1,6 +1,7 @@
 package com.algaworks.socialbooks.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.algaworks.socialbooks.domain.Comentario;
 import com.algaworks.socialbooks.domain.Livro;
 import com.algaworks.socialbooks.services.LivrosService;
+
+import scala.annotation.meta.setter;
 
 @RestController
 @RequestMapping("/livros")
@@ -56,6 +60,14 @@ public class LivrosResources {
 		livro.setId(id);
 		livrosService.atualizar(livro);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}/comentarios", method = RequestMethod.POST)
+	public ResponseEntity<Void> addComentario(@PathVariable("id") Long idLivro, @RequestBody Comentario comentario) {
+		livrosService.salvarComentario(idLivro, comentario);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+
+		return ResponseEntity.created(uri).build();
 	}
 	
 		
